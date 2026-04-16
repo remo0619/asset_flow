@@ -21,7 +21,7 @@ erDiagram
         integer id PK
         integer user_id FK
         string serial
-        string type
+        string device_type
         integer status "enum: 0:available, 1:unavailable"
     }
 
