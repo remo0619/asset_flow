@@ -1,0 +1,14 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        name: "ユーザー名"
+        email: "メールアドレス"
+        password: "パスワード"
+      device:
+        serial: "シリアル番号"
+        device_type: "デバイスの種類"
+      request:
+        start_date: "使用開始日"
+        end_date: "使用終了日"
+

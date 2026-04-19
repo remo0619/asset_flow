@@ -1,8 +1,6 @@
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
@@ -13,16 +11,43 @@
     <% if @minimum_password_length %>
       <p><em><%= @minimum_password_length %> characters minimum</em></p>
     <% end %>
+    <% if resource.errors.any? %>
+      <div id="error_explanation" data-turbo-temporary>
+        <ul>
+          <% resource.errors.full_messages_for(:password).each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
   </div>
 
   <div class="field">
     <p><%= f.label :password_confirmation %></p>
     <p><%= f.password_field :password_confirmation, autocomplete: "new-password" %></p>
+    <% if resource.errors.any? %>
+      <div id="error_explanation" data-turbo-temporary>
+        <ul>
+          <% resource.errors.full_messages_for(:password_confirmation).each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
   </div>
 
   <div class="field">
     <p><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i></p>
     <p><%= f.password_field :current_password, autocomplete: "current-password" %></p>
+    <% if resource.errors.any? %>
+      <div id="error_explanation" data-turbo-temporary>
+        <ul>
+          <% resource.errors.full_messages_for(:current_password).each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
   </div>
 
   <div class="actions">
