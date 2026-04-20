@@ -2,6 +2,11 @@ class UsersController < ApplicationController
   before_action :set_user
 
   def show
+    @devices = @user.devices
+  end
+
+  def new
+    @user = User.new
   end
 
   def edit
