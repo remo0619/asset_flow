@@ -3,6 +3,9 @@ class UsersController < ApplicationController
 
   def show
     @devices = @user.devices
+    if @user.admin?
+      @request_items = Request.where(approver_id: current_user.id, status: :pending)
+    end
   end
 
   def new

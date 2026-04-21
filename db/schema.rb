@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_04_20_063219) do
+ActiveRecord::Schema[7.2].define(version: 2026_04_21_131536) do
   create_table "devices", force: :cascade do |t|
     t.string "serial"
     t.string "device_type"
@@ -26,10 +26,11 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_20_063219) do
     t.integer "device_id", null: false
     t.date "start_date"
     t.date "end_date"
-    t.integer "status"
+    t.integer "status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "approver_id"
+    t.text "comment"
     t.index ["device_id"], name: "index_requests_on_device_id"
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
@@ -41,7 +42,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_20_063219) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.string "name"
-    t.integer "authority"
+    t.integer "authority", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true

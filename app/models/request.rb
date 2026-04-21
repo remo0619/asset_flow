@@ -7,4 +7,8 @@ class Request < ApplicationRecord
 
   validates :start_date, presence: true
   validates :end_date, presence: true, comparison: { greater_than_or_equal_to: :start_date }
+
+  def status_i18n
+    I18n.t("activerecord.attributes.request.status.#{status}")
+  end
 end

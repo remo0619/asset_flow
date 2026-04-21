@@ -1,2 +1,55 @@
-<h1>Requests#show</h1>
-<p>Find me in app/views/requests/show.html.erb</p>
+<div class="container mt-4" style="max-width: 600px;">
+  <div class="card shadow-sm">
+    <div class="card-header bg-white py-3">
+      <h1 class="h4 mb-0 text-secondary">機器利用申請</h1>
+    </div>
+    <div class="card-body p-4">
+      <%= form_with model: @request do |f| %>
+        <div class="mb-3">
+          <%= f.label :user_id, "申請者", class: "form-label text-muted small text-uppercase mb-1"%>
+          <div class="fs-5 fw-bold text-dark">
+            <%= @request.user.name %>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label text-muted small text-uppercase mb-1">デバイスの種類</label>
+          <div class="fs-5 fw-bold text-dark">
+            <%= @request.device.device_type %>
+          </div>
+        </div>
+        
+        <div class="mb-4">
+          <label class="form-label text-muted small text-uppercase mb-1">シリアル番号</label>
+          <div class="fs-5 text-dark font-monospace">
+            <%= @request.device.serial %>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <%= f.label :start_date, "利用開始日", class: "form-label text-muted small text-uppercase mb-1" %>
+          <div class="fs-5 fw-bold text-dark">
+            <%= @request.start_date %>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <%= f.label :end_date, "利用終了日", class: "form-label text-muted small text-uppercase mb-1" %>
+          <div class="fs-5 fw-bold text-dark">
+            <%= @request.end_date %>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :comment, "コメント", class: "form-label text-muted small text-uppercase mb-1"  %>
+          <%= f.text_area :comment, class: "form-control", rows: 3, placeholder: "理由があれば入力してください" %>
+        </div>
+        <div class="d-grid gap-2 mt-5">
+          <%= f.submit "承認する", formaction: approve_request_path(@request), data: { turbo_method: :patch }, class: "btn btn-primary btn-lg" %>
+          <%= f.submit "否認する", formaction: reject_request_path(@request), data: { turbo_method: :patch }, class: "btn btn-danger btn-lg" %>
+          <%= link_to "マイページに戻る", user_path(current_user), class: "btn btn-link text-decoration-none text-muted" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

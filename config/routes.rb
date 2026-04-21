@@ -13,7 +13,14 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users, :devices, :requests
+  resources :users, :devices
+  resources :requests do
+    member do
+      patch :approve
+      patch :reject
+      patch :return
+    end
+  end
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
