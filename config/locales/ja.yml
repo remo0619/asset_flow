@@ -18,6 +18,7 @@ ja:
       request:
         start_date: "使用開始日"
         end_date: "使用終了日"
+        approver_id: "管理者"
         status:
           pending: "承認待ち"
           approved: "承認済み"

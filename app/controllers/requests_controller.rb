@@ -19,7 +19,7 @@ class RequestsController < ApplicationController
   def new
     @request = Request.new
     @device = Device.find(params[:device_id])
-    @admins = User.admin
+    @admins = User.admin.where.not(id: current_user.id)
   end
 
   def create
@@ -27,6 +27,7 @@ class RequestsController < ApplicationController
     if @request.save
       redirect_to devices_path
     else
+      @device = Device.find(params[:request][:device_id])
       @admins = User.admin
       render :new, status: :unprocessable_entity
     end

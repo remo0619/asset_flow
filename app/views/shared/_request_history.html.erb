@@ -27,9 +27,23 @@
                 <span class="fw-medium"><%= req.device.serial %></span>
               </td>
               <td class="pe-4 py-3 text-end">
-                <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2">
-                <%= req.status_i18n %>
-                </span>
+                <% if req.pending? %>
+                  <span class="badge rounded-pill bg-primary-subtle text-primary border border-primary-subtle px-3 py-2">
+                  <%= req.status_i18n %>
+                  </span>
+                <% elsif req.approved? %>
+                  <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2">
+                  <%= req.status_i18n %>
+                  </span>
+                <% elsif req.rejected? %>
+                  <span class="badge rounded-pill bg-danger-subtle text-danger border border-danger-subtle px-3 py-2">
+                  <%= req.status_i18n %>
+                  </span>
+                <% else %>
+                  <span class="badge rounded-pill bg-secondary-subtle text-secondary border border-secondary-subtle px-3 py-2">
+                  <%= req.status_i18n %>
+                  </span>
+                <% end %>
               </td>
             </tr>
           <% end %>

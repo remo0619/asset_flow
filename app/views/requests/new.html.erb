@@ -45,6 +45,11 @@
         <div class="mb-3">
           <%= f.label :approver_id, "承認者" %>
           <%= f.collection_select :approver_id, @admins, :id, :name, { prompt: "管理者を選択してください" }, { class: "form-select" } %>
+          <% if @request.errors[:approver_id].any? %>
+            <div class="text-danger small mt-1">
+              <%= @request.errors.full_messages_for(:approver_id).first %>
+            </div>
+          <% end %>
         </div>
 
         <div class="d-grid gap-2 mt-5">

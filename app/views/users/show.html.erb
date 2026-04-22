@@ -62,9 +62,19 @@
                     <%= link_to device.serial, device_path(device), class: "text-decoration-none fw-bold font-monospace" %>
                   </td>
                   <td class="pe-4 py-3 text-end">
-                    <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2">
-                      <%= device.status_i18n %>
-                    </span>
+                    <% if device.available? %>
+                      <span class="badge rounded-pill bg-primary-subtle text-primary border border-primary-subtle px-3 py-2">
+                        <%= device.status_i18n %>
+                      </span>
+                    <% elsif device.borrowed? %>
+                      <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2">
+                        <%= device.status_i18n %>
+                      </span>
+                    <% else %>
+                      <span class="badge rounded-pill bg-dander-subtle text-dander border border-dander-subtle px-3 py-2">
+                        <%= device.status_i18n %>
+                      </span>
+                    <% end %>
                   </td>
                 </tr>
               <% end %>
@@ -106,8 +116,8 @@
                     <span class="fw-medium"><%= req.user.name %></span>
                   </td>
                   <td class="pe-4 py-3 text-end">
-                    <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2">
-                    <%= req.status_i18n %>
+                    <span class="badge rounded-pill bg-primary-subtle text-primary border border-primary-subtle px-3 py-2">
+                      <%= req.status_i18n %>
                     </span>
                   </td>
                 </tr>
@@ -150,9 +160,19 @@
                     <span class="fw-medium"><%= req.user.name %></span>
                   </td>
                   <td class="pe-4 py-3 text-end">
-                    <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2">
-                    <%= req.status_i18n %>
-                    </span>
+                    <% if req.approved? %>
+                      <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2">
+                      <%= req.status_i18n %>
+                      </span>
+                    <% elsif req.rejected? %>
+                      <span class="badge rounded-pill bg-danger-subtle text-danger border border-danger-subtle px-3 py-2">
+                      <%= req.status_i18n %>
+                      </span>
+                    <% else %>
+                      <span class="badge rounded-pill bg-secondary-subtle text-secondary border border-secondary-subtle px-3 py-2">
+                      <%= req.status_i18n %>
+                      </span>
+                    <% end %>
                   </td>
                 </tr>
               <% end %>
@@ -167,7 +187,7 @@
         </table>
       </div>
     </div>
-    
+
     <% # 申請履歴を表示 %>
     <%= render "shared/request_history" %>
 
