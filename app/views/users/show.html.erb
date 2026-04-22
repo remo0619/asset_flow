@@ -34,88 +34,188 @@
     </div>
   </div>
 
-  <div class="d-flex justify-content-between align-items-center mb-3 mt-3">
-    <h2 class="h4 mb-0 text-secondary fw-bold">所有機器一覧</h2>
-    <%= link_to "機器登録", new_device_path, class: "btn btn-sm btn-outline-primary" %>
-  </div>
+  <% # 管理者ユーザー表示メニュー%> 
+  <% if @user.admin? %>
+    <div class="d-flex justify-content-between align-items-center mb-3 mt-3">
+      <h2 class="h4 mb-0 text-secondary fw-bold">登録機器一覧</h2>
+      <%= link_to "機器登録", new_device_path, class: "btn btn-sm btn-outline-primary" %>
+    </div>
 
-  <div class="card shadow-sm border-0 overflow-hidden">
-    <div class="table-responsive">
-      <table class="table table-hover align-middle mb-0">
-        <thead class="table-light">
-          <tr>
-            <th class="ps-4 border-0 py-3">種類</th>
-            <th class="border-0 py-3">シリアルNo</th>
-            <th class="pe-4 border-0 py-3 text-end">ステータス</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% if @devices.present? %>
-            <% @devices.each do |device| %>
+    <div class="card shadow-sm border-0 overflow-hidden">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th class="ps-4 border-0 py-3">種類</th>
+              <th class="border-0 py-3">シリアルNo</th>
+              <th class="pe-4 border-0 py-3 text-end">ステータス</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @devices.present? %>
+              <% @devices.each do |device| %>
+                <tr>
+                  <td class="ps-4 py-3">
+                    <span class="fw-medium"><%= device.device_type %></span>
+                  </td>
+                  <td class="py-3">
+                    <%= link_to device.serial, device_path(device), class: "text-decoration-none fw-bold font-monospace" %>
+                  </td>
+                  <td class="pe-4 py-3 text-end">
+                    <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2">
+                      <%= device.status_i18n %>
+                    </span>
+                  </td>
+                </tr>
+              <% end %>
+            <% else %>
               <tr>
-                <td class="ps-4 py-3">
-                  <span class="fw-medium"><%= device.device_type %></span>
-                </td>
-                <td class="py-3">
-                  <%= link_to device.serial, device_path(device), class: "text-decoration-none fw-bold font-monospace" %>
-                </td>
-                <td class="pe-4 py-3 text-end">
-                  <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2">利用可能</span>
+                <td colspan="3" class="text-center py-5 text-muted">
+                  <p class="text-muted mb-0">登録した機器はありません。</p>
                 </td>
               </tr>
             <% end %>
-          <% else %>
-            <tr>
-              <td colspan="3" class="text-center py-5 text-muted">
-                <p class="text-muted mb-0">所有している機器はありません。</p>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
+  
+    <% # 未承認申請一覧を表示 %>
+    <div class="d-flex justify-content-between align-items-center mb-3 mt-3">
+      <h2 class="h4 mb-0 text-secondary fw-bold">未承認申請一覧</h2>
+    </div>
 
-  <div class="d-flex justify-content-between align-items-center mb-3 mt-3">
-    <h2 class="h4 mb-0 text-secondary fw-bold">未承認申請一覧</h2>
-  </div>
-
-  <div class="card shadow-sm border-0 overflow-hidden">
-    <div class="table-responsive">
-      <table class="table table-hover align-middle mb-0">
-        <thead class="table-light">
-          <tr>
-            <th class="ps-4 border-0 py-3">申請ID</th>
-            <th class="border-0 py-3">申請者</th>
-            <th class="pe-4 border-0 py-3 text-end">ステータス</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% if @request_items.present? %>
-            <% @request_items.each do |req| %>
+    <div class="card shadow-sm border-0 overflow-hidden">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th class="ps-4 border-0 py-3">申請ID</th>
+              <th class="border-0 py-3">申請者</th>
+              <th class="pe-4 border-0 py-3 text-end">ステータス</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @pending_requests.present? %>
+              <% @pending_requests.each do |req| %>
+                <tr>
+                  <td class="ps-4 py-3">
+                    <span class="fw-medium"><%= link_to req.id, request_path(req), class: "text-decoration-none" %></span>
+                  </td>
+                  <td class="py-3">
+                    <span class="fw-medium"><%= req.user.name %></span>
+                  </td>
+                  <td class="pe-4 py-3 text-end">
+                    <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2">
+                    <%= req.status_i18n %>
+                    </span>
+                  </td>
+                </tr>
+              <% end %>
+            <% else %>
               <tr>
-                <td class="ps-4 py-3">
-                  <span class="fw-medium"><%= link_to req.id, request_path(req), class: "text-decoration-none" %></span>
-                </td>
-                <td class="py-3">
-                  <span class="fw-medium"><%= req.user.name %></span>
-                </td>
-                <td class="pe-4 py-3 text-end">
-                  <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2">
-                   <%= req.status_i18n %>
-                  </span>
+                <td colspan="3" class="text-center py-5 text-muted">
+                  <p class="text-muted mb-0">未承認の申請はありません。</p>
                 </td>
               </tr>
             <% end %>
-          <% else %>
-            <tr>
-              <td colspan="3" class="text-center py-5 text-muted">
-                <p class="text-muted mb-0">未承認の申請はありません。</p>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
+
+    <% # 承認履歴を表示 %>
+    <div class="d-flex justify-content-between align-items-center mb-3 mt-3">
+      <h2 class="h4 mb-0 text-secondary fw-bold">承認履歴</h2>
+    </div>
+
+    <div class="card shadow-sm border-0 overflow-hidden">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th class="ps-4 border-0 py-3">申請ID</th>
+              <th class="border-0 py-3">申請者</th>
+              <th class="pe-4 border-0 py-3 text-end">ステータス</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @requests_history.present? %>
+              <% @requests_history.each do |req| %>
+                <tr>
+                  <td class="ps-4 py-3">
+                    <span class="fw-medium"><%= link_to req.id, request_path(req), class: "text-decoration-none" %></span>
+                  </td>
+                  <td class="py-3">
+                    <span class="fw-medium"><%= req.user.name %></span>
+                  </td>
+                  <td class="pe-4 py-3 text-end">
+                    <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2">
+                    <%= req.status_i18n %>
+                    </span>
+                  </td>
+                </tr>
+              <% end %>
+            <% else %>
+              <tr>
+                <td colspan="3" class="text-center py-5 text-muted">
+                  <p class="text-muted mb-0">承認履歴はありません。</p>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+  <% # 一般ユーザー表示メニュー%>  
+  <% else %>
+    <% # 承認履歴を表示 %>
+    <div class="d-flex justify-content-between align-items-center mb-3 mt-3">
+      <h2 class="h4 mb-0 text-secondary fw-bold">申請履歴</h2>
+    </div>
+
+    <div class="card shadow-sm border-0 overflow-hidden">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th class="ps-4 border-0 py-3">申請ID</th>
+              <th class="border-0 py-3">種類</th>
+              <th class="border-0 py-3">シリアルNo</th>
+              <th class="pe-4 border-0 py-3 text-end">ステータス</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @my_requests.present? %>
+              <% @my_requests.each do |req| %>
+                <tr>
+                  <td class="ps-4 py-3">
+                    <span class="fw-medium"><%= link_to req.id, request_path(req), class: "text-decoration-none" %></span>
+                  </td>
+                  <td class="py-3">
+                    <span class="fw-medium"><%= req.device.device_type %></span>
+                  </td>
+                  <td class="py-3">
+                    <span class="fw-medium"><%= req.device.serial %></span>
+                  </td>
+                  <td class="pe-4 py-3 text-end">
+                    <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2">
+                    <%= req.status_i18n %>
+                    </span>
+                  </td>
+                </tr>
+              <% end %>
+            <% else %>
+              <tr>
+                <td colspan="4" class="text-center py-5 text-muted">
+                  <p class="text-muted mb-0">申請履歴はありません。</p>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
 </div>

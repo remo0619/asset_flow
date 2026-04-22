@@ -41,12 +41,16 @@
         </div>
 
         <div class="mb-3">
-          <%= f.label :comment, "コメント", class: "form-label text-muted small text-uppercase mb-1"  %>
-          <%= f.text_area :comment, class: "form-control", rows: 3, placeholder: "理由があれば入力してください" %>
+          <% if @request.user.admin? %>
+            <%= f.label :comment, "コメント", class: "form-label text-muted small text-uppercase mb-1"  %>
+            <%= f.text_area :comment, class: "form-control", rows: 3, placeholder: "理由があれば入力してください" %>
+          <% end %>
         </div>
         <div class="d-grid gap-2 mt-5">
-          <%= f.submit "承認する", formaction: approve_request_path(@request), data: { turbo_method: :patch }, class: "btn btn-primary btn-lg" %>
-          <%= f.submit "否認する", formaction: reject_request_path(@request), data: { turbo_method: :patch }, class: "btn btn-danger btn-lg" %>
+          <% if @request.user.admin? %>
+            <%= f.submit "承認する", formaction: approve_request_path(@request), data: { turbo_method: :patch }, class: "btn btn-primary btn-lg" %>
+            <%= f.submit "否認する", formaction: reject_request_path(@request), data: { turbo_method: :patch }, class: "btn btn-danger btn-lg" %>
+          <% end %>
           <%= link_to "マイページに戻る", user_path(current_user), class: "btn btn-link text-decoration-none text-muted" %>
         </div>
       <% end %>

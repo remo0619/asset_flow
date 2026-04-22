@@ -4,7 +4,17 @@ class UsersController < ApplicationController
   def show
     @devices = @user.devices
     if @user.admin?
-      @request_items = Request.where(approver_id: current_user.id, status: :pending)
+      # 未承認のみ抽出
+      @pending_requests = Request.where(approver_id: current_user.id, status: :pending)
+
+      # 承認済みのみ抽出
+      @requests_history = Request.where(approver_id: current_user.id).where.not(status: :pending)
+
+      # 自分の申請のみ抽出
+      @my_requests = Request.where(user_id: current_user.id)
+    else
+      # 自分の申請のみ抽出
+      @my_requests = Request.where(user_id: current_user.id)
     end
   end
 
