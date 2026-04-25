@@ -1,8 +1,10 @@
 class DevicesController < ApplicationController
   before_action :set_device, only: [:show, :edit, :update, :destroy]
 
+  DEVICE_COUNT = 10
+
   def index
-    @devices = Device.all
+    @devices = Device.order(created_at: :desc).page(params[:page]).per(DEVICE_COUNT)
   end
 
   def show
