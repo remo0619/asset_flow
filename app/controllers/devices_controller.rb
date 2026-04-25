@@ -16,7 +16,7 @@ class DevicesController < ApplicationController
   def create
     @device = current_user.devices.build(set_params)
     if @device.save
-      redirect_to devices_path
+      redirect_to devices_path, notice: "機器を登録しました"
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class DevicesController < ApplicationController
 
   def update
     if @device.update(set_params)
-      redirect_to device_path(@device)
+      redirect_to device_path(@device), notice: "機器情報を更新しました"
     else
       render :edit, status: :unprocessable_entity
     end

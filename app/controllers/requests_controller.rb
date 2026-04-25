@@ -25,7 +25,7 @@ class RequestsController < ApplicationController
   def create
     @request = current_user.requests.build(set_params)
     if @request.save
-      redirect_to devices_path
+      redirect_to devices_path, notice: "申請を登録しました"
     else
       @device = Device.find(params[:request][:device_id])
       @admins = User.admin
@@ -36,7 +36,7 @@ class RequestsController < ApplicationController
   def approve
     if @request.update(status: :approved, comment: params[:request][:comment])
       @request.device.update(status: :borrowed)
-      redirect_to user_path(current_user)
+      redirect_to user_path(current_user), notice: "申請を承認しました"
     else
       render :show, status: :unprocessable_entity
     end
@@ -44,7 +44,7 @@ class RequestsController < ApplicationController
 
   def reject
     if @request.update(status: :rejected, comment: params[:request][:comment])
-      redirect_to user_path(current_user)
+      redirect_to user_path(current_user), notice: "申請を否認しました"
     else
       render :show, status: :unprocessable_entity
     end
@@ -53,7 +53,7 @@ class RequestsController < ApplicationController
   def return
     if @request.update(status: :returned)
       @request.device.update(status: :available)
-      redirect_to user_path(current_user)
+      redirect_to user_path(current_user), notice: "機器を返却しました"
     else
       render :show, status: :unprocessable_entity
     end

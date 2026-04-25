@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(set_params)
-      redirect_to user_path(current_user)
+      redirect_to user_path(current_user), notice: "プロフィール情報を更新しました"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -46,7 +46,7 @@ class UsersController < ApplicationController
 
   def check_guest
     if @user.email == 'guest@example.com' || @user.email == 'admin_guest@example.com'
-      redirect_to :authenticated_root
+      redirect_to :authenticated_root , alert: "ゲストユーザーは編集できません"
     end
   end
 end
