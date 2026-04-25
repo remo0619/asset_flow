@@ -31,7 +31,7 @@
           <%= link_to "機器情報編集", edit_device_path(@device), class: "btn btn-primary" %>
         <% end %>
         <% if @device.available? %>
-          <%= link_to "この機器を利用する", new_request_path(device_id: @device.id), class: "btn btn-primary" %>
+          <%= link_to "この機器を利用する", new_request_path(device_id: @device.id), class: "btn btn-success" %>
         <% elsif @device.borrowed? && @my_request.present? %>
           <%= button_tag "この機器を返却する", 
               type: "button", 

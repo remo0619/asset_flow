@@ -27,7 +27,8 @@
 
         <div class="d-grid gap-2 mt-5">
           <%= f.submit "更新", class: "btn btn-primary btn-lg" %>
-          <%= link_to "機器詳細に戻る", device_path, class: "btn btn-link text-decoration-none text-muted" %>
+          <%= link_to "この機器を削除する", device_path(@device), data: { turbo_method: :delete, turbo_confirm: "本当に削除してもよろしいですか？" }, class: "btn btn-danger btn-lg" %>
+          <%= link_to "機器詳細に戻る", device_path(@device), class: "btn btn-link text-decoration-none text-muted" %>
         </div>
       <% end %>
     </div>

@@ -36,6 +36,11 @@ class DevicesController < ApplicationController
   end
 
   def destroy
+    if @device.destroy
+      redirect_to devices_path, notice: "機器を削除しました"
+    else
+      redirect_to device_path(@device), alert: "この機器には申請履歴があるため削除できません。"
+    end
   end
 
   private

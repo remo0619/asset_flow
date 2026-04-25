@@ -1,6 +1,6 @@
 class Device < ApplicationRecord
   belongs_to :user
-  has_many :requests
+  has_many :requests, dependent: :restrict_with_error
 
   enum status: { available: 0, borrowed: 1, unavailable: 2 }
 
