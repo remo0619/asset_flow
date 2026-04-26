@@ -1,7 +1,7 @@
 class Users::SessionsController < Devise::SessionsController
   def guest_sign_in
-    user = User.find_or_create_by(email: 'guest@example.com') do |u|
-      u.name = 'ゲスト(一般)'
+    user = User.find_or_create_by(email: "guest@example.com") do |u|
+      u.name = "ゲスト(一般)"
       u.password = SecureRandom.urlsafe_base64
     end
     sign_in user
@@ -9,8 +9,8 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def admin_guest_sign_in
-    user = User.find_or_create_by(email: 'admin_guest@example.com') do |u|
-      u.name = 'ゲスト(管理者)'
+    user = User.find_or_create_by(email: "admin_guest@example.com") do |u|
+      u.name = "ゲスト(管理者)"
       u.password = SecureRandom.urlsafe_base64
       u.authority = :admin
     end

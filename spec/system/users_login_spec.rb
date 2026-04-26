@@ -28,5 +28,4 @@ RSpec.describe "ログイン機能", type: :system do
     expect(page).to have_current_path "/"
     expect(page).to have_content "ログイン"
   end
-
 end

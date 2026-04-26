@@ -1,5 +1,5 @@
 class RequestsController < ApplicationController
-  before_action :set_request, only: [:show, :show_pending, :show_history, :approve, :reject, :return, :edit, :update, :destroy]
+  before_action :set_request, only: [ :show, :show_pending, :show_history, :approve, :reject, :return, :edit, :update, :destroy ]
 
   def index
   end

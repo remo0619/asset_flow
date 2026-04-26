@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
-    sessions: 'users/sessions'
+    sessions: "users/sessions"
   }
 
   # ゲストユーザーログインパス
   devise_scope :user do
-    post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
-    post 'users/admin_guest_sign_in', to: 'users/sessions#admin_guest_sign_in'
+    post "users/guest_sign_in", to: "users/sessions#guest_sign_in"
+    post "users/admin_guest_sign_in", to: "users/sessions#admin_guest_sign_in"
   end
 
   # ログインしている時のroot(機器一覧)
@@ -32,7 +32,7 @@ Rails.application.routes.draw do
       get :show_history
     end
   end
-  
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

@@ -1,5 +1,5 @@
 class DevicesController < ApplicationController
-  before_action :set_device, only: [:show, :edit, :update, :destroy]
+  before_action :set_device, only: [ :show, :edit, :update, :destroy ]
 
   DEVICE_COUNT = 10
 
@@ -8,7 +8,7 @@ class DevicesController < ApplicationController
   end
 
   def show
-    @my_request = @device.requests.find_by(user_id: current_user.id, status: :approved )
+    @my_request = @device.requests.find_by(user_id: current_user.id, status: :approved)
   end
 
   def new

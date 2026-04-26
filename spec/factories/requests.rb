@@ -5,7 +5,7 @@ FactoryBot.define do
     status { :pending }
 
     association :user, factory: :user
-    association :approver, factory: [:user, :admin]
+    association :approver, factory: [ :user, :admin ]
     association :device, factory: :device
   end
 end
