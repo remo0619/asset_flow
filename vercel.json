@@ -2,7 +2,7 @@
   "builds": [
     {
       "src": "config/routes.rb",
-      "use": "vercel-ruby@3.3.3"
+      "use": "vercel-ruby"
     }
   ],
   "routes": [
