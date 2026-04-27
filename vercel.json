@@ -1,9 +1,11 @@
 {
-  "functions": {
-    "config/routes.rb": {
-      "runtime": "vercel-ruby@3.3.3"
+  "version": 2,
+  "builds": [
+    {
+      "src": "config/routes.rb",
+      "use": "vercel-ruby@3.3.0"
     }
-  },
+  ],
   "routes": [
     {
       "src": "/(.*)",
