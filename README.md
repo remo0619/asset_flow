@@ -1,5 +1,7 @@
 # AssetFlow 企業向け資産管理アプリ
-
+![ロゴ](app/assets/images/logo.png)
+![トップページ](app/assets/images/ScreenShot01.png)
+![マイページ](app/assets/images/ScreenShot02.png)
 ## アプリの概要
 社内備品の管理・貸出フローをデジタル化し、効率的な資産管理を支援するシステムです。  
 PCや外付けHDDなどの備品在庫を可視化し、従業員による利用申請から管理者による承認までをワンストップで完結させます。
@@ -66,6 +68,7 @@ erDiagram
         integer device_id FK
         date start_date
         date end_date
+        text comment
         integer status "enum: 0:pending, 1:approved, 2:rejected, 3:returned"
     }
 ```
