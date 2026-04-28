@@ -3,6 +3,9 @@
 ![トップページ](app/assets/images/ScreenShot01.png)
 ![マイページ](app/assets/images/ScreenShot02.png)
 
+## サービスURL
+https://asset-flow0619-a4439ceccd3a.herokuapp.com/
+
 ## アプリの概要
 社内備品の管理・貸出フローをデジタル化し、効率的な資産管理を支援するシステムです。  
 PCや外付けHDDなどの備品在庫を可視化し、従業員による利用申請から管理者による承認までをワンストップで完結させます。
