@@ -44,7 +44,7 @@ PCや外付けHDDなどの備品在庫を可視化し、従業員による利用
 ・GitHub Actions
 
 ### インフラ・開発環境
-・Vercel: デプロイ  
+・Heroku: デプロイ  
 ・Git/GitHub: ソースコード・バージョン管理
 
 ## DB設計
